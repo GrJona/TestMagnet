@@ -2,24 +2,26 @@
  * Created by Jonathan.Greener on 25-Apr-17.
  */
 import express from 'express';
+var fs = require('fs');
 var ffmpeg = require('ffmpeg');
 // Initialize http server
 const app = express();
 
 // Handle / route
 app.get('/', (req, res) =>
-    res.send('Hello World!')
+    res.send('Server Running!')
 )
 
 
 // Handle / route
-app.get('/bla', (req, res) => {
+app.get('/videotest', (req, res) => {
 
     try {
       var process = new ffmpeg('./output.mp4');
       process.then(function (video) {
         //console.log('The video is ready to be processed');
         console.log('The video is ready to be processed');
+        fs.unlinkSync('./video-com-watermark.mp4');
 
         var watermarkPath = 'image.png',
             newFilepath = './video-com-watermark.mp4',
@@ -35,13 +37,17 @@ app.get('/bla', (req, res) => {
             console.log('ERROR: ', error);
           }
           else{
-            console.log('TERMINOU', files);
+            console.log('Finished Converting!', files);
+            //res.send(files + " was created")
+            res.set('Content-Disposition', 'attachment; filename=video-com-watermark.mp4');
+            res.sendFile( __dirname + "/video-com-watermark.mp4" );
+
           }
         }
         //add watermark
         video.fnAddWatermark(watermarkPath, newFilepath, settings, callback)
 
-        res.send('The video is ready to be processed')
+       // res.send('The video is ready to be processed')
       }, function (err) {
         res.send('error')
         //console.log('Error: ' + err);
