@@ -1,7 +1,7 @@
 /**
  * Created by Jonathan.Greener on 25-Apr-17.
  */
-import express from 'express';
+var express = require('express');
 var fs = require('fs');
 var ffmpeg = require('ffmpeg');
 // Initialize http server
