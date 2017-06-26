@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "babel ./ --source-maps --out-dir dist",
-    "start": "nodemon -- node_modules/babel-cli/bin/babel-node.js  server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.15.2",
