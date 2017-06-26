@@ -21,7 +21,9 @@ app.get('/videotest', (req, res) => {
       process.then(function (video) {
         //console.log('The video is ready to be processed');
         console.log('The video is ready to be processed');
-        fs.unlinkSync('./video-com-watermark.mp4');
+        if (fs.existsSync("./video-com-watermark.mp4")) {
+          fs.unlinkSync('./video-com-watermark.mp4');
+      }
 
         var watermarkPath = 'image.png',
             newFilepath = './video-com-watermark.mp4',
@@ -45,6 +47,8 @@ app.get('/videotest', (req, res) => {
           }
         }
         //add watermark
+        //video.setVideoSize(1000, true ,true, 'white');
+
         video.fnAddWatermark(watermarkPath, newFilepath, settings, callback)
 
        // res.send('The video is ready to be processed')
