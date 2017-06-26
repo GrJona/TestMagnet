@@ -6,7 +6,7 @@ var fs = require('fs');
 var ffmpeg = require('ffmpeg');
 // Initialize http server
 const app = express();
-
+const PORT = process.env.PORT || 3000;
 // Handle / route
 app.get('/', (req, res) =>
     res.send('Server Running!')
@@ -59,7 +59,7 @@ app.get('/videotest', (req, res) => {
 )
 
 // Launch the server on port 3000
-const server = app.listen(3000, () => {
+const server = app.listen(PORT, () => {
   const { address, port } = server.address();
   console.log(`Listening at http://${address}:${port}`);
 });
